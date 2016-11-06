@@ -23,7 +23,7 @@ class Application extends CI_Controller
 
 		//  Set basic view parameters
 		$this->data = array ();
-		$this->data['pagetitle'] = 'CodeIgniter3.1 Starter 2';
+		$this->data['pagetitle'] = 'Cake';
 		$this->data['ci_version'] = (ENVIRONMENT === 'development') ? 'CodeIgniter Version <strong>'.CI_VERSION.'</strong>' : '';
 	}
 
@@ -31,9 +31,20 @@ class Application extends CI_Controller
 	 * Render this page
 	 */
 	function render($template = 'template')
-	{
-		$this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
-		$this->parser->parse('template', $this->data);
-	}
+        {
+            // use layout content if provided
+            $this->data['navbar'] = $this->parser->parse('navbar', $this->data, true);
+            if (!isset($this->data['content']))
+                $this->data['content'] = $this->parser->parse($this->data['pagebody'], $this->data, true);
+           
+             // integrate any needed CSS framework & components
+            $this->data['caboose_styles'] = $this->caboose->styles();
+            $this->data['caboose_scripts'] = $this->caboose->scripts();
+            $this->data['caboose_trailings'] = $this->caboose->trailings();
+
+             $this->parser->parse($template, $this->data);
+            
+            
+        }
 
 }
