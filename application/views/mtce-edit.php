@@ -1,4 +1,4 @@
-<h2>Menu Maintenance - Editing</h2>
+<h2>Menu Maintenance - {action}</h2>
 {error_messages}
 <form action="/crud/save" method="post" enctype="multipart/form-data">
     {fid}
@@ -12,4 +12,6 @@
     </div>
     {fcategory}
     {zsubmit} <a class="btn btn-default" role="button" href="/crud/cancel">Cancel</a>
+    <a class="btn btn-default" role="button" href="/crud/delete">Delete</a>
+    <a class="btn btn-default" role="button" href="/crud/add">Add a new menu item</a>
 </form>
