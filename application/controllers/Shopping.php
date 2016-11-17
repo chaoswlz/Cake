@@ -30,8 +30,10 @@ class Shopping extends Application {
     }
 
     public function keep_shopping() {
-        $stuff = file_get_contents('../data/receipt.md');
+        $order = new Order($this->session->userdata('order'));
+        $stuff = $order->receipt();
         $this->data['receipt'] = $this->parsedown->parse($stuff);
+        
         $this->data['content'] = '';
         
         // pictorial menu
@@ -55,7 +57,7 @@ class Shopping extends Application {
         // create a new order if needed
         if (! $this->session->has_userdata('order')) {
             $order = new Order();
-            $this->session->set_userdata('order',$order);
+            $this->session->set_userdata('order', (array) $order);
         }
 
         $this->keep_shopping();
@@ -68,5 +70,13 @@ class Shopping extends Application {
         }
 
         $this->index();
+    }
+    
+    public function add($what) {
+        $order = new Order($this->session->userdata('order'));
+        $order->additem($what);
+        $this->keep_shopping();
+        $this->session->set_userdata('order',(array)$order);
+        redirect('/shopping');
     }
 }
