@@ -10,6 +10,6 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <img class="scale" src="/images/{picture}"/><br/>
+        <a href="/shopping/add/{id}"><img class="scale" src="/images/{picture}"/></a><br/>
     </body>
 </html>
